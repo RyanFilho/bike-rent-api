@@ -18,6 +18,7 @@ model Bike {
   description String     @db.VarChar(200)
   ratings     Float
   imageUrls   ImageUrl[]
+  rental      Rental[]
   candidate   Candidate  @relation(fields: [candidateId], references: [id])
 
   @@id([id, candidateId])
@@ -38,16 +39,32 @@ model User {
   name        String
   email       String    @unique
   password    String
+  rental      Rental[]
   candidate   Candidate @relation(fields: [candidateId], references: [id])
 
   @@id([id, candidateId])
 }
 
 model Candidate {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
-  token String @unique
-  users User[]
-  bikes Bike[]
+  id      Int    @id @default(autoincrement())
+  name    String
+  email   String @unique
+  token   String @unique
+  users   User[]
+  bikes   Bike[]
+  rental  Rental[]
+}
+
+model Rental {
+  id          Int       @id @default(autoincrement())
+  candidateId Int
+  bikeId      Int
+  userId      Int
+  startDate   DateTime
+  endDate     DateTime
+  rate        Int
+  serviceFee  Decimal
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  bike        Bike      @relation(fields: [bikeId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
 }

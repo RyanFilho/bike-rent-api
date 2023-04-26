@@ -1,10 +1,12 @@
+import { Decimal } from "@prisma/client/runtime";
+
 export interface Rental {
   id?: number;
   candidateId?: number;
   bikeId: number;
   userId: number;
-  startDate: number;
-  endDate: number;
+  startDate: Date;
+  endDate: Date;
   rate: number;
-  serviceFee: string;
+  serviceFee: Decimal;
 }
