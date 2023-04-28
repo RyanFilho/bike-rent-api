@@ -52,11 +52,10 @@ export class PrismaBikeRepository implements BikeRepository {
     return { ...createdBike, imageUrls: bikeImageUrls };
   }
 
-  async findById(id: number, candidateId: number): Promise<Bike> {
-    const bike = await prismaClient.bike.findFirst({
+  async findById(id: number): Promise<Bike> {
+    const bike = await prismaClient.bike.findUnique({
       where: {
-        id,
-        candidateId,
+        id
       },
     });
     

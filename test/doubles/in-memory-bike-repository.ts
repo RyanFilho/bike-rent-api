@@ -25,4 +25,8 @@ export class InMemoryBikeRepository implements BikeRepository {
     this.bikes.push(newBike);
     return newBike;
   }
+
+  async findById(id: number): Promise<Bike> {
+    return this.bikes.filter((bike) => bike.id === id)[0];
+  }
 }

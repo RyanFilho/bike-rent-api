@@ -62,8 +62,8 @@ model Rent {
   userId      Int
   startDate   DateTime
   endDate     DateTime
-  rate        Int
   serviceFee  Decimal
+  totalCharge Decimal
   candidate   Candidate @relation(fields: [candidateId], references: [id])
   bike        Bike      @relation(fields: [bikeId], references: [id])
   user        User      @relation(fields: [userId], references: [id])

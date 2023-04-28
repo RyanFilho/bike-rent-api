@@ -18,4 +18,8 @@ export class InMemoryUserRepository implements UserRepository {
   async list(candidateId: number): Promise<User[]> {
     return this.users.filter((user) => user.candidateId === candidateId);
   }
+
+  async findById(id: number): Promise<User> {
+    return this.users.filter((user) => user.id === id)[0];
+  }
 }

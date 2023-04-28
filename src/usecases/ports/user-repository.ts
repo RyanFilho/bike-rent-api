@@ -4,5 +4,5 @@ export interface UserRepository {
   add(user: User): Promise<User>;
   findByEmail(email: string, candidateId: number): Promise<User | undefined>;
   list(candidateId: number): Promise<User[]>;
-  findById(id: number, candidateId: number): Promise<User>;
+  findById(id: number): Promise<User>;
 }

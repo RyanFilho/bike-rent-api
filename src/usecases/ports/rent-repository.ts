@@ -1,5 +1,5 @@
-import { Rent } from '@/usecases/datatypes/rent';
+import { RentData } from "@/usecases/datatypes/rent-data";
 
 export interface RentRepository {
-  add(rent: Rent): Promise<Rent>;
+  add(rent: RentData): void;
 }

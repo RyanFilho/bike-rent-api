@@ -1,10 +1,11 @@
 import { UseCase } from '@/usecases/ports/use-case';
-import { Rent } from '@/usecases/datatypes/rent';
+import { RentRequest } from '@/usecases/datatypes/rent-request';
 import { RentRepository } from '@/usecases/ports/rent-repository';
 import { CandidateRepository } from '@/usecases/ports/candidate-repository';
 import { BikeRepository } from '@/usecases/ports/bike-repository';
 import { UserRepository } from '@/usecases/ports/user-repository';
 import { UnauthorizedError } from '@/usecases/errors/unauthorized-error';
+import { Rent } from '@/entities/rent';
 
 export class CreateRent implements UseCase {
   constructor(
@@ -14,27 +15,20 @@ export class CreateRent implements UseCase {
     private readonly userRepository: UserRepository
   ) {}
 
-  async perform(rent: Rent, candidateToken: string): Promise<Rent> {
+  async perform(rentRequest: RentRequest, candidateToken: string) {
     const candidate = await this.candidateRepository.findByToken(candidateToken);
     if (!candidate) throw new UnauthorizedError();
 
-    const bike = await this.bikeRepository.findById(rent.bikeId, candidate.id);
-    if (!candidate) throw new UnauthorizedError();
+    const bike = await this.bikeRepository.findById(rentRequest.bikeId);
+    if (!bike) throw new UnauthorizedError();
 
-    const user = await this.userRepository.findById(rent.userId, candidate.id);
-    if (!candidate) throw new UnauthorizedError();
+    const user = await this.userRepository.findById(rentRequest.userId);
+    if (!user) throw new UnauthorizedError();
 
-    //TODO:
-    // - Get bike rate
-    // - Calculate service fee
-    // - Validate user exists
-    // - Validate bike exists 
-    rent.candidateId = candidate.id;
-    rent.rate = bike.rate;
-    const daysRented = Math.ceil((rent.startDate.getTime() - rent.endDate.getTime()) / (1000 * 60 * 60 * 24));
-    rent.rentRate = bike.rate * daysRented;
-    rent.totalCharged = bike.rate;
+    rentRequest.candidateId = candidate.id;
 
-    return await this.rentRepository.add({ ...rent, candidateId: candidate.id });
+    var entity = new Rent(rentRequest);
+
+    await this.rentRepository.add({ ...entity });
   }
 }

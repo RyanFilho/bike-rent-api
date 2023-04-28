@@ -6,8 +6,8 @@ CREATE TABLE `Rent` (
     `userId` INTEGER NOT NULL,
     `startDate` DATETIME(3) NOT NULL,
     `endDate` DATETIME(3) NOT NULL,
-    `rate` INTEGER NOT NULL,
     `serviceFee` DECIMAL(65, 30) NOT NULL,
+    `totalCharge` DECIMAL(65, 30) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
