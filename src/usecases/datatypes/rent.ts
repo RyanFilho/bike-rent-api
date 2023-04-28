@@ -1,6 +1,6 @@
 import { Decimal } from "@prisma/client/runtime";
 
-export interface Rental {
+export interface Rent {
   id?: number;
   candidateId?: number;
   bikeId: number;

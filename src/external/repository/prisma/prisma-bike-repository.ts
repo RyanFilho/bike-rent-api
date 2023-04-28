@@ -51,4 +51,23 @@ export class PrismaBikeRepository implements BikeRepository {
     });
     return { ...createdBike, imageUrls: bikeImageUrls };
   }
+
+  async findById(id: number, candidateId: number): Promise<Bike> {
+    const bike = await prismaClient.bike.findFirst({
+      where: {
+        id,
+        candidateId,
+      },
+    });
+    
+    const imageUrlRecords = await prismaClient.imageUrl.findMany({
+      where: {
+        bikeId: bike.id,
+      },
+    });
+
+    const imageUrls = imageUrlRecords.map((imageUrlRecord) => imageUrlRecord.url);
+    const bikeWithImageUrls: Bike = { ...bike, imageUrls };
+    return bikeWithImageUrls;
+  }
 }

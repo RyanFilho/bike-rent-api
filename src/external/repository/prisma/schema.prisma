@@ -18,7 +18,7 @@ model Bike {
   description String     @db.VarChar(200)
   ratings     Float
   imageUrls   ImageUrl[]
-  rental      Rental[]
+  rent      Rent[]
   candidate   Candidate  @relation(fields: [candidateId], references: [id])
 
   @@id([id, candidateId])
@@ -39,7 +39,7 @@ model User {
   name        String
   email       String    @unique
   password    String
-  rental      Rental[]
+  rent      Rent[]
   candidate   Candidate @relation(fields: [candidateId], references: [id])
 
   @@id([id, candidateId])
@@ -52,10 +52,10 @@ model Candidate {
   token   String @unique
   users   User[]
   bikes   Bike[]
-  rental  Rental[]
+  rent  Rent[]
 }
 
-model Rental {
+model Rent {
   id          Int       @id @default(autoincrement())
   candidateId Int
   bikeId      Int
