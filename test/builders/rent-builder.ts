@@ -5,8 +5,8 @@ export class RentBuilder {
   private rent: Rent = {
     bikeId: 1,
     userId: 1,
-    startDate: new Date("2023-01-01"),
-    endDate: new Date("2023-01-11"),
+    startDate: new Date('2023-01-01'),
+    endDate: new Date('2023-01-11'),
     serviceFee: 15,
     totalCharge: 115
   };
