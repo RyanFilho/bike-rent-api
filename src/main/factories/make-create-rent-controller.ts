@@ -11,7 +11,12 @@ export const makeCreateRentController = (): Controller => {
   const candidateRepository = makeCandidateRepository();
   const bikeRepository = makeBikeRepository();
   const userRepository = makeUserRepository();
-  const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+  const useCase = new CreateRent(
+    rentRepository,
+    candidateRepository,
+    bikeRepository,
+    userRepository
+  );
   const createCourseController = new CreateRentController(useCase);
   return createCourseController;
 };
