@@ -31,4 +31,19 @@ describe('Bike prisma repository', () => {
       ])
     );
   });
+
+  it('should null if don\'t find bike by id', async () => {
+    await clearPrismaDatabase();
+    const candidateRepo = new PrismaCandidateRepository();
+    const repo = new PrismaBikeRepository();
+
+    const candidate = await candidateRepo.add({
+      name: 'any_name',
+      email: 'any_email',
+      token: 'any_token',
+    });
+    const bikes = await repo.findById(candidate.id);
+
+    expect(bikes).toBeNull();
+  });
 });
