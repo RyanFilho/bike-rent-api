@@ -27,7 +27,7 @@ export class PrismaBikeRepository implements BikeRepository {
     const allBikes = await this.list(candidateId);
     const availableBikes: Bike[] = [];
     allBikes.forEach((bike) => {
-      const bikeIsAvailable = !openRents.some((rent) => rent.bikeId === bike.id);
+      const bikeIsAvailable = openRents;
       if (bikeIsAvailable) availableBikes.push(bike);
     });
     return availableBikes;
