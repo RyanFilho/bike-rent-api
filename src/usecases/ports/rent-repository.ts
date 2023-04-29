@@ -1,5 +1,6 @@
-import { RentData } from '@/usecases/datatypes/rent-data';
+import { Rent } from '@/usecases/datatypes/rent';
 
 export interface RentRepository {
-  add(rent: RentData): void;
+  add(rent: Rent): Promise<Rent>;
+  existsRentInThisPeriod(startDate: Date, endDate: Date): Promise<boolean>;
 }

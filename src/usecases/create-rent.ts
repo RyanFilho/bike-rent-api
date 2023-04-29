@@ -5,6 +5,9 @@ import { CandidateRepository } from '@/usecases/ports/candidate-repository';
 import { BikeRepository } from '@/usecases/ports/bike-repository';
 import { UserRepository } from '@/usecases/ports/user-repository';
 import { UnauthorizedError } from '@/usecases/errors/unauthorized-error';
+import { InvalidRentPeriodError } from './errors/invalid-rent-period-error';
+import { InvalidRentPropertyError } from './errors/invalid-rent-property-error';
+import { OverlappingRentsError } from './errors/overlapping-rents-error';
 
 export class CreateRent implements UseCase {
   constructor(
@@ -12,19 +15,21 @@ export class CreateRent implements UseCase {
     private readonly candidateRepository: CandidateRepository,
     private readonly bikeRepository: BikeRepository,
     private readonly userRepository: UserRepository
-  ) {}
+  ) { }
 
-  async perform(rent: Rent, candidateToken: string) {
+  async perform(rent: Rent, candidateToken: string): Promise<Rent> {
     const candidate = await this.candidateRepository.findByToken(candidateToken);
     if (!candidate) throw new UnauthorizedError();
 
     const bike = await this.bikeRepository.findById(rent.bikeId);
-    if (!bike) throw new UnauthorizedError();
+    if (!bike) throw new InvalidRentPropertyError('bikeId');
 
     const user = await this.userRepository.findById(rent.userId);
-    if (!user) throw new UnauthorizedError();
+    if (!user) throw new InvalidRentPropertyError('userId');
 
-    if (rent.startDate >= rent.endDate) throw new UnauthorizedError();
+    if (rent.startDate >= rent.endDate) throw new InvalidRentPeriodError(rent.startDate, rent.endDate);
+
+    if (await this.rentRepository.existsRentInThisPeriod(rent.startDate, rent.endDate)) throw new OverlappingRentsError(rent.startDate, rent.endDate);
 
     rent.candidateId = candidate.id;
     rent.startDate = this.getDateWithoutTime(new Date(rent.startDate));
@@ -32,8 +37,8 @@ export class CreateRent implements UseCase {
     const rentRate = await this.getRentRate(rent, bike.rate);
     rent.serviceFee = rentRate * 0.15;
     rent.totalCharge = rentRate + rent.serviceFee;
-    
-    this.rentRepository.add(rent);
+
+    return this.rentRepository.add(rent);
   }
 
   private async getRentRate(rent: Rent, ratePerDay: number) {
@@ -44,6 +49,6 @@ export class CreateRent implements UseCase {
   }
 
   private getDateWithoutTime(date: Date): Date {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
   }
 }
