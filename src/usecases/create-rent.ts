@@ -29,7 +29,7 @@ export class CreateRent implements UseCase {
 
     if (rent.startDate >= rent.endDate) throw new InvalidRentPeriodError(rent.startDate, rent.endDate);
 
-    if (await this.rentRepository.existsRentInThisPeriod(rent.startDate, rent.endDate)) throw new OverlappingRentsError(rent.startDate, rent.endDate);
+    if (await this.rentRepository.isBikeAvailable(rent)) throw new OverlappingRentsError(rent.startDate, rent.endDate);
 
     rent.candidateId = candidate.id;
     rent.startDate = this.getDateWithoutTime(new Date(rent.startDate));

@@ -8,7 +8,7 @@ import { UserBuilder } from '@test/builders/user-builder';
 import { clearPrismaDatabase } from '@test/main/routes/clear-database';
 
 describe('Rent prisma repository', () => {
-  it('should be able to list rents', async () => {
+  it('should be able to verify if bike is available', async () => {
     await clearPrismaDatabase();
     const candidateRepo = new PrismaCandidateRepository();
     const userRepo = new PrismaUserRepository();
@@ -38,17 +38,22 @@ describe('Rent prisma repository', () => {
       .withDates(startDate, endDate)
       .build();
 
-    await repo.add({
+    const rentAdded = await repo.add({
       ...rentInfo,
       candidateId: candidate.id,
       userId: user.id,
       bikeId: bike.id,
     });
-
-    const shouldExists = await repo.existsRentInThisPeriod(startDate, endDate);
-    const shouldNotExists = await repo.existsRentInThisPeriod(new Date('2020-01-01'), new Date('2020-02-01'));
     
-    expect(shouldExists).toBeTruthy();
-    expect(shouldNotExists).toBeFalsy();
+    const shouldBe = await repo.isBikeAvailable(rentAdded);
+    var otherRent = {
+      ...rentInfo,
+      startDate: new Date('2020-01-01'),
+      endDate: new Date('2020-02-01')
+    }
+    const shouldNotBe = await repo.isBikeAvailable(otherRent);
+    
+    expect(shouldBe).toBeTruthy();
+    expect(shouldNotBe).toBeFalsy();
   });
 });

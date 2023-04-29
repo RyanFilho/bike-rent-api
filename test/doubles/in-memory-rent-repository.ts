@@ -11,7 +11,7 @@ export class InMemoryRentRepository implements RentRepository {
     return newRent;
   }
 
-  async existsRentInThisPeriod(startDate: Date, endDate: Date): Promise<boolean>  {
-    return this.rents.filter(rent => rent.startDate <= endDate && rent.endDate >= startDate).length > 0;
+  async isBikeAvailable(rent: Rent): Promise<boolean>  {
+    return this.rents.filter(item => item.bikeId == rent.bikeId && item.startDate <= rent.endDate && item.endDate >= rent.startDate).length > 0;
   }
 }

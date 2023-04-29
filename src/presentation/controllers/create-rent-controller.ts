@@ -13,8 +13,11 @@ export class CreateRentController implements Controller {
       };
     } catch (error) {
       const userUnauthorized = error.constructor.name === 'UnauthorizedError';
+      const invalidRentPeriodError = error.constructor.name === 'InvalidRentPeriodError';
+      const invalidRentPropertyError = error.constructor.name === 'InvalidRentPropertyError';
+      const overlappingRentsError = error.constructor.name === 'OverlappingRentsError';
 
-      if (userUnauthorized) {
+      if (userUnauthorized || invalidRentPeriodError || invalidRentPropertyError || overlappingRentsError) {
         return {
           statusCode: error.httpStatus,
           body: {

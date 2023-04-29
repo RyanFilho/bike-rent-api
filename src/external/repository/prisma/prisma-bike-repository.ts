@@ -59,6 +59,9 @@ export class PrismaBikeRepository implements BikeRepository {
       },
     });
 
+    if(!!! bike)
+      return null;
+
     const imageUrlRecords = await prismaClient.imageUrl.findMany({
       where: {
         bikeId: bike.id,

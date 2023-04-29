@@ -39,19 +39,22 @@ export class PrismaRentRepository implements RentRepository {
     return rentAdded;
   }
 
-  async existsRentInThisPeriod(startDate: Date, endDate: Date): Promise<boolean> {
+  async isBikeAvailable(rent: Rent): Promise<boolean> {
     const result = await prismaClient.rent.count({
       take: 1,
       where: {
         AND: [
           {
+            bikeId: rent.bikeId,
+          },
+          {
             startDate: {
-              lte: endDate
+              lte: rent.endDate
             }
           },
           {
             endDate: {
-              gte: startDate
+              gte: rent.startDate
             }
           }
         ],
