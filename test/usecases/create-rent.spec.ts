@@ -32,8 +32,8 @@ describe('Create rent use case', () => {
     const request: Rent = {
       bikeId: bike.id,
       userId: user.id,
-      startDate: new Date("2023-04-23T18:25:43.511Z"),
-      endDate: new Date("2023-04-30T18:25:43.511Z"),
+      startDate: new Date('2023-04-23T18:25:43.511Z'),
+      endDate: new Date('2023-04-30T18:25:43.511Z'),
       serviceFee: null,
       totalCharge: null
     };
@@ -43,8 +43,8 @@ describe('Create rent use case', () => {
     expect(rent.bikeId).toEqual(addedBike.id);
     expect(rent.userId).toEqual(addedUser.id);
     expect(rent.candidateId).toEqual(addedCandidate.id);
-    expect(rent.startDate).toEqual(new Date("2023-04-23"));
-    expect(rent.endDate).toEqual(new Date("2023-04-30"));
+    expect(rent.startDate).toEqual(new Date('2023-04-23'));
+    expect(rent.endDate).toEqual(new Date('2023-04-30'));
   });
 
   it('should create a new rent with 15% service fee', async () => {
@@ -67,8 +67,8 @@ describe('Create rent use case', () => {
     const request: Rent = {
       bikeId: bike.id,
       userId: user.id,
-      startDate: new Date("2023-01-01T18:25:43.511Z"),
-      endDate: new Date("2023-01-30T18:25:43.511Z"),
+      startDate: new Date('2023-01-01T18:25:43.511Z'),
+      endDate: new Date('2023-01-30T18:25:43.511Z'),
       serviceFee: null,
       totalCharge: null
     };
@@ -97,8 +97,8 @@ describe('Create rent use case', () => {
     const request: Rent = {
       bikeId: bike.id,
       userId: user.id,
-      startDate: new Date("2023-12-01"),
-      endDate: new Date("2023-01-01"),
+      startDate: new Date('2023-12-01'),
+      endDate: new Date('2023-01-01'),
       serviceFee: null,
       totalCharge: null
     };
@@ -122,8 +122,8 @@ describe('Create rent use case', () => {
     const request: Rent = {
       bikeId: 0,
       userId: user.id,
-      startDate: new Date("2023-12-01"),
-      endDate: new Date("2023-01-01"),
+      startDate: new Date('2023-12-01'),
+      endDate: new Date('2023-01-01'),
       serviceFee: null,
       totalCharge: null
     };
@@ -147,8 +147,8 @@ describe('Create rent use case', () => {
     const request: Rent = {
       bikeId: bike.id,
       userId: 0,
-      startDate: new Date("2023-12-01"),
-      endDate: new Date("2023-01-01"),
+      startDate: new Date('2023-12-01'),
+      endDate: new Date('2023-01-01'),
       serviceFee: null,
       totalCharge: null
     };
