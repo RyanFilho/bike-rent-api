@@ -14,6 +14,8 @@ The system is composed of three entities:
 
 3. **Bikes**: These are the system's products that can be rented based on their availability.
 
+4. **Rent**: These are the records of bike rents made by the users.
+
 This is a TypeScript application that:
 
 - exposes the following Endpoints
@@ -27,6 +29,8 @@ This is a TypeScript application that:
 > POST _/users_
 >
 > POST _/candidates_
+>
+> POST _/rents_
 
 - connects to a database to retrieve data
 

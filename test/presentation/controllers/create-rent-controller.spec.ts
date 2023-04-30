@@ -19,19 +19,24 @@ describe('Create rent controller', () => {
     const userRepository = new InMemoryUserRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const rentRepository = new InMemoryRentRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
     const controller = new CreateRentController(useCase);
     const candidate = await candidateRepository.add(addedCandidate);
     const user = await userRepository.add(addedUser);
     const bike = await bikeRepository.add(addedBike);
-    
+
     const request: HttpRequest = {
       token: candidate.token,
       body: {
         bikeId: bike.id,
         userId: user.id,
         startDate: '2023-04-23T18:25:43.511Z',
-        endDate: '2023-04-30T18:25:43.511Z'
+        endDate: '2023-04-30T18:25:43.511Z',
       },
     };
 
@@ -49,19 +54,24 @@ describe('Create rent controller', () => {
     const userRepository = new InMemoryUserRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const rentRepository = new InMemoryRentRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
     const controller = new CreateRentController(useCase);
     const candidate = await candidateRepository.add(addedCandidate);
     const user = await userRepository.add(addedUser);
     const bike = await bikeRepository.add(addedBike);
-    
+
     const request: HttpRequest = {
       token: candidate.token,
       body: {
         bikeId: bike.id,
         userId: user.id,
         startDate: '2023-04-23T18:25:43.511Z',
-        endDate: '2023-04-30T18:25:43.511Z'
+        endDate: '2023-04-30T18:25:43.511Z',
       },
     };
 
@@ -80,19 +90,24 @@ describe('Create rent controller', () => {
     const userRepository = new InMemoryUserRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const rentRepository = new InMemoryRentRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
     const controller = new CreateRentController(useCase);
     const candidate = await candidateRepository.add(addedCandidate);
     const user = await userRepository.add(addedUser);
     const bike = await bikeRepository.add(addedBike);
-    
+
     const request: HttpRequest = {
       token: candidate.token,
       body: {
         bikeId: bike.id,
         userId: user.id,
         startDate: '2023-05-30T18:25:43.511Z',
-        endDate: '2023-04-30T18:25:43.511Z'
+        endDate: '2023-04-30T18:25:43.511Z',
       },
     };
 
@@ -111,18 +126,23 @@ describe('Create rent controller', () => {
     const userRepository = new InMemoryUserRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const rentRepository = new InMemoryRentRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
     const controller = new CreateRentController(useCase);
     const candidate = await candidateRepository.add(addedCandidate);
     const bike = await bikeRepository.add(addedBike);
-    
+
     const request: HttpRequest = {
       token: candidate.token,
       body: {
         bikeId: bike.id,
         userId: 0,
         startDate: '2023-05-30T18:25:43.511Z',
-        endDate: '2023-04-30T18:25:43.511Z'
+        endDate: '2023-04-30T18:25:43.511Z',
       },
     };
 
@@ -155,7 +175,12 @@ describe('Create rent controller', () => {
     const userRepository = new InMemoryUserRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const rentRepository = new InMemoryRentRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
     const controller = new CreateRentController(useCase);
 
     const request: HttpRequest = {

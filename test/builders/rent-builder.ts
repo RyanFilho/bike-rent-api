@@ -1,14 +1,13 @@
 import { Rent } from '@/usecases/datatypes/rent';
 
 export class RentBuilder {
-
   private rent: Rent = {
     bikeId: 1,
     userId: 1,
     startDate: new Date('2023-01-01'),
     endDate: new Date('2023-01-11'),
     serviceFee: 15,
-    totalCharge: 115
+    totalCharge: 115,
   };
 
   withId(): RentBuilder {

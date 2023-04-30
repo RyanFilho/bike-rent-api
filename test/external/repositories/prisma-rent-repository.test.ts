@@ -34,9 +34,7 @@ describe('Rent prisma repository', () => {
     const startDate = new Date('2023-01-01');
     const endDate = new Date('2023-02-01');
 
-    const rentInfo = new RentBuilder()
-      .withDates(startDate, endDate)
-      .build();
+    const rentInfo = new RentBuilder().withDates(startDate, endDate).build();
 
     const rentAdded = await repo.add({
       ...rentInfo,
@@ -44,15 +42,15 @@ describe('Rent prisma repository', () => {
       userId: user.id,
       bikeId: bike.id,
     });
-    
+
     const shouldBe = await repo.isBikeAvailable(rentAdded);
     var otherRent = {
       ...rentInfo,
       startDate: new Date('2020-01-01'),
-      endDate: new Date('2020-02-01')
-    }
+      endDate: new Date('2020-02-01'),
+    };
     const shouldNotBe = await repo.isBikeAvailable(otherRent);
-    
+
     expect(shouldBe).toBeTruthy();
     expect(shouldNotBe).toBeFalsy();
   });

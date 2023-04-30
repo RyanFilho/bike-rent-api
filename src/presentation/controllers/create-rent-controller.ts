@@ -17,7 +17,12 @@ export class CreateRentController implements Controller {
       const invalidRentPropertyError = error.constructor.name === 'InvalidRentPropertyError';
       const overlappingRentsError = error.constructor.name === 'OverlappingRentsError';
 
-      if (userUnauthorized || invalidRentPeriodError || invalidRentPropertyError || overlappingRentsError) {
+      if (
+        userUnauthorized ||
+        invalidRentPeriodError ||
+        invalidRentPropertyError ||
+        overlappingRentsError
+      ) {
         return {
           statusCode: error.httpStatus,
           body: {

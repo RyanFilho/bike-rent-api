@@ -15,7 +15,7 @@ export class CreateRent implements UseCase {
     private readonly candidateRepository: CandidateRepository,
     private readonly bikeRepository: BikeRepository,
     private readonly userRepository: UserRepository
-  ) { }
+  ) {}
 
   async perform(rent: Rent, candidateToken: string): Promise<Rent> {
     const candidate = await this.candidateRepository.findByToken(candidateToken);
@@ -27,9 +27,11 @@ export class CreateRent implements UseCase {
     const user = await this.userRepository.findById(rent.userId);
     if (!user) throw new InvalidRentPropertyError('userId');
 
-    if (rent.startDate >= rent.endDate) throw new InvalidRentPeriodError(rent.startDate, rent.endDate);
+    if (rent.startDate >= rent.endDate)
+      throw new InvalidRentPeriodError(rent.startDate, rent.endDate);
 
-    if (await this.rentRepository.isBikeAvailable(rent)) throw new OverlappingRentsError(rent.startDate, rent.endDate);
+    if (await this.rentRepository.isBikeAvailable(rent))
+      throw new OverlappingRentsError(rent.startDate, rent.endDate);
 
     rent.candidateId = candidate.id;
     rent.startDate = this.getDateWithoutTime(new Date(rent.startDate));

@@ -18,7 +18,12 @@ describe('Create rent use case', () => {
     const rentRepository = new InMemoryRentRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const userRepository = new InMemoryUserRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
 
     const addedCandidate = new CandidateBuilder().withId().withToken().build();
     const candidate = await candidateRepository.add(addedCandidate);
@@ -35,7 +40,7 @@ describe('Create rent use case', () => {
       startDate: new Date('2023-04-23T18:25:43.511Z'),
       endDate: new Date('2023-04-30T18:25:43.511Z'),
       serviceFee: null,
-      totalCharge: null
+      totalCharge: null,
     };
 
     const rent = await useCase.perform(request, candidate.token);
@@ -52,7 +57,12 @@ describe('Create rent use case', () => {
     const rentRepository = new InMemoryRentRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const userRepository = new InMemoryUserRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
 
     const addedCandidate = new CandidateBuilder().withId().withToken().build();
     const candidate = await candidateRepository.add(addedCandidate);
@@ -70,7 +80,7 @@ describe('Create rent use case', () => {
       startDate: new Date('2023-01-01T18:25:43.511Z'),
       endDate: new Date('2023-01-30T18:25:43.511Z'),
       serviceFee: null,
-      totalCharge: null
+      totalCharge: null,
     };
 
     const rent = await useCase.perform(request, candidate.token);
@@ -83,7 +93,12 @@ describe('Create rent use case', () => {
     const rentRepository = new InMemoryRentRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const userRepository = new InMemoryUserRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
 
     const addedCandidate = new CandidateBuilder().withId().withToken().build();
     const candidate = await candidateRepository.add(addedCandidate);
@@ -100,7 +115,7 @@ describe('Create rent use case', () => {
       startDate: new Date('2023-12-01'),
       endDate: new Date('2023-01-01'),
       serviceFee: null,
-      totalCharge: null
+      totalCharge: null,
     };
 
     await expect(useCase.perform(request, candidate.token)).rejects.toThrow(InvalidRentPeriodError);
@@ -111,7 +126,12 @@ describe('Create rent use case', () => {
     const rentRepository = new InMemoryRentRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const userRepository = new InMemoryUserRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
 
     const addedCandidate = new CandidateBuilder().withId().withToken().build();
     const candidate = await candidateRepository.add(addedCandidate);
@@ -125,10 +145,12 @@ describe('Create rent use case', () => {
       startDate: new Date('2023-12-01'),
       endDate: new Date('2023-01-01'),
       serviceFee: null,
-      totalCharge: null
+      totalCharge: null,
     };
 
-    await expect(useCase.perform(request, candidate.token)).rejects.toThrow(InvalidRentPropertyError);
+    await expect(useCase.perform(request, candidate.token)).rejects.toThrow(
+      InvalidRentPropertyError
+    );
   });
 
   it('should not create rent with invalid user', async () => {
@@ -136,7 +158,12 @@ describe('Create rent use case', () => {
     const rentRepository = new InMemoryRentRepository();
     const bikeRepository = new InMemoryBikeRepository();
     const userRepository = new InMemoryUserRepository();
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+    const useCase = new CreateRent(
+      rentRepository,
+      candidateRepository,
+      bikeRepository,
+      userRepository
+    );
 
     const addedCandidate = new CandidateBuilder().withId().withToken().build();
     const candidate = await candidateRepository.add(addedCandidate);
@@ -150,81 +177,131 @@ describe('Create rent use case', () => {
       startDate: new Date('2023-12-01'),
       endDate: new Date('2023-01-01'),
       serviceFee: null,
-      totalCharge: null
+      totalCharge: null,
     };
 
-    await expect(useCase.perform(request, candidate.token)).rejects.toThrow(InvalidRentPropertyError);
+    await expect(useCase.perform(request, candidate.token)).rejects.toThrow(
+      InvalidRentPropertyError
+    );
   });
 
   it.each([
-    [new Date('2023-01-01'), new Date('2023-01-02'), new Date('2023-01-01'), new Date('2023-01-02')],
-    [new Date('2023-01-01'), new Date('2023-03-01'), new Date('2023-02-01'), new Date('2023-02-10')],
-    [new Date('2023-01-01'), new Date('2023-02-01'), new Date('2023-01-20'), new Date('2023-03-01')],
-    [new Date('2023-01-01'), new Date('2023-02-01'), new Date('2022-12-01'), new Date('2023-01-15')]
-  ])('should not create overlapping rents', async (existingStart: Date, existingEnd: Date, newStart: Date, newEnd: Date) => {
-    const candidateRepository = new InMemoryCandidateRepository();
-    const rentRepository = new InMemoryRentRepository();
-    const bikeRepository = new InMemoryBikeRepository();
-    const userRepository = new InMemoryUserRepository();
+    [
+      new Date('2023-01-01'),
+      new Date('2023-01-02'),
+      new Date('2023-01-01'),
+      new Date('2023-01-02'),
+    ],
+    [
+      new Date('2023-01-01'),
+      new Date('2023-03-01'),
+      new Date('2023-02-01'),
+      new Date('2023-02-10'),
+    ],
+    [
+      new Date('2023-01-01'),
+      new Date('2023-02-01'),
+      new Date('2023-01-20'),
+      new Date('2023-03-01'),
+    ],
+    [
+      new Date('2023-01-01'),
+      new Date('2023-02-01'),
+      new Date('2022-12-01'),
+      new Date('2023-01-15'),
+    ],
+  ])(
+    'should not create overlapping rents',
+    async (existingStart: Date, existingEnd: Date, newStart: Date, newEnd: Date) => {
+      const candidateRepository = new InMemoryCandidateRepository();
+      const rentRepository = new InMemoryRentRepository();
+      const bikeRepository = new InMemoryBikeRepository();
+      const userRepository = new InMemoryUserRepository();
 
-    const addedRent = new RentBuilder().withDates(existingStart, existingEnd).build();
-    await rentRepository.add(addedRent);
+      const addedRent = new RentBuilder().withDates(existingStart, existingEnd).build();
+      await rentRepository.add(addedRent);
 
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+      const useCase = new CreateRent(
+        rentRepository,
+        candidateRepository,
+        bikeRepository,
+        userRepository
+      );
 
-    const addedCandidate = new CandidateBuilder().withId().withToken().build();
-    const candidate = await candidateRepository.add(addedCandidate);
+      const addedCandidate = new CandidateBuilder().withId().withToken().build();
+      const candidate = await candidateRepository.add(addedCandidate);
 
-    const addedBike = new BikeBuilder().withId().build();
-    const bike = await bikeRepository.add(addedBike);
+      const addedBike = new BikeBuilder().withId().build();
+      const bike = await bikeRepository.add(addedBike);
 
-    const addedUser = new UserBuilder().withId().build();
-    const user = await userRepository.add(addedUser);
+      const addedUser = new UserBuilder().withId().build();
+      const user = await userRepository.add(addedUser);
 
-    const request: Rent = {
-      bikeId: bike.id,
-      userId: user.id,
-      startDate: newStart,
-      endDate: newEnd,
-      serviceFee: null,
-      totalCharge: null
-    };
+      const request: Rent = {
+        bikeId: bike.id,
+        userId: user.id,
+        startDate: newStart,
+        endDate: newEnd,
+        serviceFee: null,
+        totalCharge: null,
+      };
 
-    await expect(useCase.perform(request, candidate.token)).rejects.toThrow(OverlappingRentsError);
-  });
+      await expect(useCase.perform(request, candidate.token)).rejects.toThrow(
+        OverlappingRentsError
+      );
+    }
+  );
 
   it.each([
-    [new Date('2020-01-01'), new Date('2020-01-02'), new Date('2023-01-01'), new Date('2023-01-02')],
-    [new Date('2024-01-01'), new Date('2024-03-01'), new Date('2023-02-01'), new Date('2023-02-10')]
-  ])('should create not overlapping rents', async (existingStart: Date, existingEnd: Date, newStart: Date, newEnd: Date) => {
-    const candidateRepository = new InMemoryCandidateRepository();
-    const rentRepository = new InMemoryRentRepository();
-    const bikeRepository = new InMemoryBikeRepository();
-    const userRepository = new InMemoryUserRepository();
+    [
+      new Date('2020-01-01'),
+      new Date('2020-01-02'),
+      new Date('2023-01-01'),
+      new Date('2023-01-02'),
+    ],
+    [
+      new Date('2024-01-01'),
+      new Date('2024-03-01'),
+      new Date('2023-02-01'),
+      new Date('2023-02-10'),
+    ],
+  ])(
+    'should create not overlapping rents',
+    async (existingStart: Date, existingEnd: Date, newStart: Date, newEnd: Date) => {
+      const candidateRepository = new InMemoryCandidateRepository();
+      const rentRepository = new InMemoryRentRepository();
+      const bikeRepository = new InMemoryBikeRepository();
+      const userRepository = new InMemoryUserRepository();
 
-    const addedRent = new RentBuilder().withDates(existingStart, existingEnd).build();
-    await rentRepository.add(addedRent);
+      const addedRent = new RentBuilder().withDates(existingStart, existingEnd).build();
+      await rentRepository.add(addedRent);
 
-    const useCase = new CreateRent(rentRepository, candidateRepository, bikeRepository, userRepository);
+      const useCase = new CreateRent(
+        rentRepository,
+        candidateRepository,
+        bikeRepository,
+        userRepository
+      );
 
-    const addedCandidate = new CandidateBuilder().withId().withToken().build();
-    const candidate = await candidateRepository.add(addedCandidate);
+      const addedCandidate = new CandidateBuilder().withId().withToken().build();
+      const candidate = await candidateRepository.add(addedCandidate);
 
-    const addedBike = new BikeBuilder().withId().build();
-    const bike = await bikeRepository.add(addedBike);
+      const addedBike = new BikeBuilder().withId().build();
+      const bike = await bikeRepository.add(addedBike);
 
-    const addedUser = new UserBuilder().withId().build();
-    const user = await userRepository.add(addedUser);
+      const addedUser = new UserBuilder().withId().build();
+      const user = await userRepository.add(addedUser);
 
-    const request: Rent = {
-      bikeId: bike.id,
-      userId: user.id,
-      startDate: newStart,
-      endDate: newEnd,
-      serviceFee: null,
-      totalCharge: null
-    };
-    const rentCreated = await useCase.perform(request, candidate.token);
-    await expect(rentCreated.startDate).toEqual(newStart);
-  });
+      const request: Rent = {
+        bikeId: bike.id,
+        userId: user.id,
+        startDate: newStart,
+        endDate: newEnd,
+        serviceFee: null,
+        totalCharge: null,
+      };
+      const rentCreated = await useCase.perform(request, candidate.token);
+      await expect(rentCreated.startDate).toEqual(newStart);
+    }
+  );
 });

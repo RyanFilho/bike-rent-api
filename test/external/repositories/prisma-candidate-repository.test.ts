@@ -27,7 +27,7 @@ describe('Candidate prisma repository', () => {
     expect(candidates.token).toBe(candidateInfo.token);
   });
 
-  it('should be able return undefined when don\'t find by token', async () => {
+  it("should be able return undefined when don't find by token", async () => {
     await clearPrismaDatabase();
     const repo = new PrismaCandidateRepository();
 

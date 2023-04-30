@@ -35,7 +35,7 @@ export class PrismaRentRepository implements RentRepository {
       endDate: prismaRent.endDate,
       serviceFee: Number(prismaRent.serviceFee.toString()),
       totalCharge: Number(prismaRent.totalCharge.toString()),
-    }
+    };
     return rentAdded;
   }
 
@@ -49,14 +49,14 @@ export class PrismaRentRepository implements RentRepository {
           },
           {
             startDate: {
-              lte: rent.endDate
-            }
+              lte: rent.endDate,
+            },
           },
           {
             endDate: {
-              gte: rent.startDate
-            }
-          }
+              gte: rent.startDate,
+            },
+          },
         ],
       },
     });

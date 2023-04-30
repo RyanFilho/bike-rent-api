@@ -12,7 +12,7 @@ describe('Create rent route', () => {
     await clearPrismaDatabase();
     const userRepo = new PrismaUserRepository();
     const bikeRepo = new PrismaBikeRepository();
-    
+
     const candidate = await prismaClient.candidate.create({
       data: {
         email: 'first@candidate.com',
@@ -38,7 +38,7 @@ describe('Create rent route', () => {
         bikeId: bike.id,
         userId: user.id,
         startDate: '2023-04-23T18:25:43.511Z',
-        endDate: '2023-04-30T18:25:43.511Z'
+        endDate: '2023-04-30T18:25:43.511Z',
       })
       .expect(201);
   });
