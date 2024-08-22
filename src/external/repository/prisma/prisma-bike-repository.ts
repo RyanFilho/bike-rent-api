@@ -27,7 +27,7 @@ export class PrismaBikeRepository implements BikeRepository {
     const allBikes = await this.list(candidateId);
     const availableBikes: Bike[] = [];
     allBikes.forEach((bike) => {
-      const bikeIsAvailable = !openRents.some((rent) => rent.bikeId === bike.id);
+      const bikeIsAvailable = openRents;
       if (bikeIsAvailable) availableBikes.push(bike);
     });
     return availableBikes;
@@ -50,5 +50,25 @@ export class PrismaBikeRepository implements BikeRepository {
       },
     });
     return { ...createdBike, imageUrls: bikeImageUrls };
+  }
+
+  async findById(id: number): Promise<Bike> {
+    const bike = await prismaClient.bike.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!!!bike) return null;
+
+    const imageUrlRecords = await prismaClient.imageUrl.findMany({
+      where: {
+        bikeId: bike.id,
+      },
+    });
+
+    const imageUrls = imageUrlRecords.map((imageUrlRecord) => imageUrlRecord.url);
+    const bikeWithImageUrls: Bike = { ...bike, imageUrls };
+    return bikeWithImageUrls;
   }
 }
